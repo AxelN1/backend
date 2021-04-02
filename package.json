@@ -1,6 +1,7 @@
 {
   "name": "Backend",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,9 +19,6 @@
   "homepage": "https://github.com/AxelN1/backend#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "request": "^2.88.2",
-    "require": "^2.4.20"
-  },
-  "devDependencies": {},
-  "description": ""
+    "request": "^2.88.2"
+  }
 }
