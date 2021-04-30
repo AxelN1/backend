@@ -11,10 +11,9 @@ app.get("/name", (req, res) => {
 
     console.log("countries", countries);
 
-debugger
-    // res.json({
-    //     countries
-    // })
+    res.json({
+        countries
+    })
     
 })
 
