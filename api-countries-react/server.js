@@ -1,6 +1,6 @@
 const express = require("express")
 const cors = require("cors")
-const { country, teams } = require("./dataCountries")
+const { countries } = require("./dataCountries")
 
 app.get("/country/", (req, res) => {
 
