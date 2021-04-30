@@ -1,9 +1,20 @@
 const express = require("express")
+const app = express()
 const cors = require("cors")
 const { countries } = require("./dataCountries")
 
-app.get("/country/", (req, res) => {
+app.use(cors())
 
+const port = 8000
+
+app.get("/name", (req, res) => {
+
+    console.log("countries", countries);
+
+debugger
+    // res.json({
+    //     countries
+    // })
     
 })
 
