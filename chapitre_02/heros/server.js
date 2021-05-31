@@ -8,19 +8,29 @@ const herosName = require("./superHeros")
 app.use(express.json()) 
 app.use(cors())
 
-const port = 8000
+const port = 8001
 
 
+// app.get(function(req, res, next) {
+//   // console.log(body);
+//   // next();
+// });
 
-app.get("/heros", (req, res, next) => {
-    res.json(herosName)
-    console.log(`start of the port, ${port}` );
+app.use("/", (req, res, next) => {
+  res.json(herosName)
+  next()
+})
+
+
+app.get("/heros/:name", (req, res) => {
+    const heros = herosName.name
+    res.render('hero', req.params.name)
+    console.log(`start of the poort, ${port}` );
+    // next()
   })
 
-  app.use(function(req, res, next) {
-    console.log(body);
-    next();
-  });
+
+  // app
 
   app.get('*', (req, res) => {
     res.json({
