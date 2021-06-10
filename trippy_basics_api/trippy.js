@@ -23,7 +23,14 @@ const hotelSchema = new mongoose.Schema({
 const Hotel = new mongoose.model("Hotel", hotelSchema)
 
 Hotel.insertMany({
-    
+    name: "HBC",
+    address: "12 rue Passy,16éme",
+    city: "Paris",
+    country: "France",
+    stars: 6,
+    hasSpa: true,
+    hasPool: true,
+    priceCategory: 200,
 })
 
 const restaurantSchema = new mongoose.Schema({
@@ -40,7 +47,7 @@ const restaurantSchema = new mongoose.Schema({
 const Restaurant = new mongoose.model("Restaurant", restaurantSchema)
 
 Restaurant.insertMany({
-    
+
 })
 
 app.get("/hotels", async (req, res) => {
