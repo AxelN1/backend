@@ -1,25 +1,30 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const expressValidator = require('express-validator');
-
-mongoose.connect('mongodb://localhost:27017/validation', (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("i'm in mongodb place dude !!");
-  }
-});
+const express = require("express");
+const expressValidator = require("express-validator");
+const passwordValidator = require("password-validator");
 
 const app = express();
-const port = 8000;
-
-app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('On the route / my friend !');
-});
-app.listen(port, () => {
-  console.log(`Major Tom on port ${port}`);
-});
+
+
+
+app.post('/signup',
+expressValidator.body("username").is().min(4),
+expressValidator.body("email").isEmail()
+expressValidator.body("age").is().max(2),
+expressValidator.body("city").custom((value) => {
+  var city = new cityValidator();
+  city
+  
+  
+
+}),
+
+    
+    app.get("*", (req, res) => {
+    
+    })
+    
+    app.listen(8000, () => {
+      console.log("server started")
+})
