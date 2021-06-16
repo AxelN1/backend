@@ -8,8 +8,6 @@ const usernameSchema = new mongoose.Schema({
     created: { type: Date, default: Date.now }
 })
 
-const username = mongoose.model("Hotel", usernameSchema)
-
-
+const username = mongoose.model("username", usernameSchema)
 
 module.exports = username

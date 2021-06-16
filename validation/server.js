@@ -25,10 +25,21 @@ expressValidator.body("age").is().max(2),
 expressValidator.body("city").custom((value) => {
   var city = new cityValidator();
   city
-  
-  
-
+  .is().oneOf(["Paris", "Tokio", "Los Angeles"]);
+        return schema.validate(value);
 }),
+(req, res) => {
+  const errors = validationResult(req);
+  console.log('req :', req.body);
+  console.log('errors :', errors);
+
+  if (errors.isEmpty() === false) {
+      res.status(400).json({errors: "error 400"})
+  }
+
+  res.json("Ca marche")
+}
+}
 
     app.get("*", (req, res) => {
       console.log('All requests');
