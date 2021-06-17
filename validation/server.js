@@ -1,50 +1,101 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require("express")
+const mongoose = require("mongoose")
+const cors = require("cors")
 const expressValidator = require("express-validator");
-const passwordValidator = require("password-validator");
-const userName = require("./model/username");
-
-const app = express();
-app.use(express.json());
-
-const port = 8000
-
+const UserName = require('./model/userName');
 
 mongoose.connect("mongodb://localhost:27017/username", (err) => {
   if (err) {
     console.error(err)
-} else {
+  } else {
     console.log("I'm connected to the database");
-}
+  }
 })
 
-app.post('/signup',
-expressValidator.body("username").is().min(4),
-expressValidator.body("email").isEmail(),
-expressValidator.body("age").is().max(2),
-expressValidator.body("city").custom((value) => {
-  var city = new cityValidator();
-  city
-  .is().oneOf(["Paris", "Tokio", "Los Angeles"]);
-        return schema.validate(value);
-}),
-(req, res) => {
-  const errors = validationResult(req);
-  console.log('req :', req.body);
-  console.log('errors :', errors);
+const port = 8000
 
-  if (errors.isEmpty() === false) {
-      res.status(400).json({errors: "error 400"})
+const app = express()
+
+app.use(cors())
+app.use(express.json())
+
+const debug = (req, res, next) => {
+  console.log("request received !");
+
+  next()
+}
+
+app.use(debug)
+
+
+app.get("/", async (req, res) => {
+  try {
+
+    const users = await UserName.find()
+    res.json(users)
+  } catch (err) {
+    console.log("Error", error);
+    res.status(500).json({ message: "Erreur en traitant la requête" })
   }
 
-  res.json("Ca marche")
-}
-}
+})
 
-    app.get("*", (req, res) => {
-      console.log('All requests');
-    })
-    
-    app.listen(8000, () => {
-      console.log("server started")
+app.post('/users/add',
+  expressValidator.body("username").isEmail((value) => {
+    var schema = new passwordValidator();
+    schema
+      .is().min(4)
+      .is().max(20)
+      .has().not().spaces()
+
+    return schema.validate(value);
+  }),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (errors.isEmpty() === false) {
+      res.json({
+        errors: errors.array()
+      });
+      return;
+    } else {
+      res.json({
+        success: true,
+        message: 'User will be saved'
+      });
+    }
+  }
+);
+
+app.get("/users/:name", async (req, res) => {
+
+  try {
+
+    const username = req.params.username
+    const user = await userName.findOne({ username: username })
+
+    if (user) {
+      res.json({ user })
+
+    } else {
+      res.json({
+        message: "User not found"
+      })
+    }
+
+  }
+  catch (err) {
+    console.error(err)
+    res.status(500).json({ errorMessage: "There was a problem" })
+  }
+
 });
+
+app.get("*", (req, res) => {
+  res.json({
+    errorMessage: "The route was not found"
+  }, 404)
+})
+
+app.listen(port, () => {
+  console.log(`Ecoute des requêtes sur le port ${port}`);
+})
