@@ -2,7 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
 const expressValidator = require("express-validator");
-const UserName = require('./model/userName');
+const UserName = require('./model/username');
 
 mongoose.connect("mongodb://localhost:27017/username", (err) => {
   if (err) {
