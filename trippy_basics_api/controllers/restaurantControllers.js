@@ -40,8 +40,39 @@ const addRestaurant = async (req, res) => {
     }
 }
 
+const changeRestaurantName = async (req, res) => {
+    try {
+        const id = req.params.id
+        const newNameRestaurant = req.body.name
+
+        await restaurantModel.findByIdAndUpdate(id, { name: newNameRestaurant })
+        res.json({
+            message: `The restaurant name was changed`
+        })
+    } catch (err) {
+        console.error('Error', err)
+        res.status(500).json({ message: "There was a problem"})
+    }
+}
+
+const deleteRestaurant = async (req, res) => {
+    try {
+        const restaurantId = req.params.id
+
+        await restaurantModel.findByIdAndDelete(restaurantId)
+        res.json({
+            message: `The restaurant has been delete`
+        })
+    } catch (err) {
+        console.error('Error', err)
+        res.status(500).json({ message: "There was a problem" })
+    }
+}
+
 module.exports = {
     getRestaurants,
     getRestaurant,
-    addRestaurant
+    addRestaurant,
+    changeRestaurantName,
+    deleteRestaurant
 }
