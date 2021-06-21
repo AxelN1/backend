@@ -40,15 +40,33 @@ const addHotel = async (req, res) => {
 
 const updateHotelName = async (req, res) => {
     try {
+        const id = req.params.id
+        const newNameHotel = req.body.name
+
+        await hotelModel.findByIdAndUpdate(id, { name: newNameHotel })
         res.json();
     } catch (error) {
         res.status(500).json({ message: "There was a problem", error });
     }
 };
 
+const deleteHotel = async (req, res) => {
+    try {
+        const hotelId = req.params.id
+
+        await hotelModel.findByIdAndDelete(hotelId)
+        res.json({ message: 'Hotel deleted' })
+    } catch (err) {
+        console.error('Error', err)
+        res.status(500).json({ message: "There was a problem" })
+    }
+}
+
+
 module.exports = {
     getHotels,
     getHotel,
     addHotel,
     updateHotelName,
+    deleteHotel
 };
