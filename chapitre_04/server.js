@@ -31,6 +31,20 @@ app.post("/signup", async (req, res) => {
     } catch (error) {
         console.error(err)
 
+        res.json({ errorMessage: "There was a problem :(" }, 500)
+    }
+})
+
+app.post("/login", async (req, res) => {
+
+    try {
+        const username = req.body.username
+        const user = await userModel.findOne({ username })
+
+        res.json("User found", user)
+    } catch (error) {
+        console.error(err)
+
         res.json({ errorMessage: "There was a problem" }, 500)
     }
 })
@@ -51,4 +65,5 @@ app.get("/signup", async (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`request listening ${port}`);
+    console.log(`listening on port ${port}`);
+})
