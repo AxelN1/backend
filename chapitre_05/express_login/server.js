@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { mongoURL } = require('./config');
+const authRoutes = require("./routes/authRoutes")
+const usersRoutes = require("./routes/usersRoutes")
 
 const port = 8000;
 
@@ -25,6 +27,8 @@ mongoose.connect(
 
 app.use(cors());
 app.use(express.json());
+app.use("/auth", authRoutes)
+app.use("/users", usersRoutes)
 
 app.get('/', (req, res) => {
   res.send('in get / route');
