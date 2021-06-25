@@ -1,17 +1,16 @@
 const mongoose = require("mongoose")
 
-const hotelSchema = new mongoose.Schema({
+const restaurantSchema = new mongoose.Schema({
     name: String,
     adress: String,
     city: String,
     country: String,
     stars: Number,
-    hasSpa: Boolean,
-    hasPool: Boolean,
+    cuisine: String,
     priceCategory: Number,
     created: { type: Date, default: Date.now }
 })
 
-const Hotel = mongoose.model("Hotel", HotelSchema)
+const Restaurant = mongoose.model("Restaurant", RestaurantSchema)
 
-module.exports = hotel
+module.exports = restaurant

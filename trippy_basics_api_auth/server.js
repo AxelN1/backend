@@ -3,7 +3,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const Hotel = require("./model/Hotel")
 const Restaurant = require("./model/Restaurant")
-const {port, mongoURL} = require("../config")
+const {port, mongoURL} = require("./config")
 
 mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true },(err) => {
     if (err) {
